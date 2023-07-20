@@ -7,11 +7,13 @@ import json
 hostname = socket.gethostname()
 UDP_IP = socket.gethostbyname(hostname)
 print("***Local ip:" + str(UDP_IP) + "***")
-UDP_PORT = 80
+UDP_PORT = 1080
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.bind((UDP_IP, UDP_PORT))
+print("bind")
+sock.bind(("11.11.50.2", UDP_PORT))
 sock.listen(1)  # 接收的连接数
 data, addr = sock.accept()
+print("accept")
 
 distance_a1_a2 = 3.0
 meter2pixel = 100
@@ -183,13 +185,13 @@ def main():
         list = read_data()
 
         for one in list:
-            if one["A"] == "1782":
+            if one["A"] == "1886":
                 clean(t_a1)
                 a1_range = uwb_range_offset(float(one["R"]))
                 draw_uwb_anchor(-250, 150, "A1782(0,0)", a1_range, t_a1)
                 node_count += 1
 
-            if one["A"] == "1783":
+            if one["A"] == "1986":
                 clean(t_a2)
                 a2_range = uwb_range_offset(float(one["R"]))
                 draw_uwb_anchor(-250 + meter2pixel * distance_a1_a2,
